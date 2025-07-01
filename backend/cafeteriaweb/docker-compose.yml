@@ -1,0 +1,41 @@
+services:
+  # Serviço do banco de dados PostgreSQL
+  postgres:
+    image: postgres:15.6  # Versão compatível com Flyway
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistência dos dados do banco
+      - ./01-basegeografica.sql:/docker-entrypoint-initdb.d/01-basegeografica.sql
+      - ./02-basegeografica.sql:/docker-entrypoint-initdb.d/02-basegeografica.sql
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin1234"
+      POSTGRES_DB: "bd_ecommerce"
+    ports:
+      - "5432:5432"
+    networks:
+      - ecommerce-net
+
+  # Serviço do pgAdmin
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - ecommerce-net
+
+# Volumes persistentes
+volumes:
+  postgres_data:     # Dados do banco PostgreSQL
+  pgadmin_data:      # Dados de configuração do pgAdmin
+
+# Rede interna
+networks:
+  ecommerce-net:
