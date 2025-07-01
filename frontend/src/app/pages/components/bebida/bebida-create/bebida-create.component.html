@@ -1,0 +1,96 @@
+
+  <section class="ingredientes">
+    <h3>Selecione os ingredientes base:</h3>
+    <div class="cads-ingredientes">
+      <section class="card-base">
+        <div class="card-btn">
+          <h4>Base</h4>
+          <div class="btn-base">
+            <button
+              *ngFor="let base of ingredientesBase"
+              (click)="selecionarBase(base)"
+              [disabled]="desabilitaBase(base)"
+              [ngClass]="{ selecionado: selecionadosBase.includes(base) }"
+            >
+              {{ base.nome }}
+            </button>
+          </div>
+          <p class="subtitulo">Monte a receita de sua preferência.</p>
+        </div>
+        <div class="acoes">
+          <button class="btn-preto" (click)="verificarBebida()">
+            Confirmar sabor Base
+          </button>
+        </div>
+      </section>
+
+      <section class="card-adicionais">
+        <div class="card-btn">
+          <h4>Adicionais</h4>
+          <div class="btn-base">
+            <button
+              *ngFor="let saborAdicional of ingredientesAdicional"
+              (click)="selecionarSaborAdicional(saborAdicional)"
+              [disabled]="desabilitaAdicional(saborAdicional)"
+              [ngClass]="{
+                selecionado: selecionadosSaborAdicional.includes(saborAdicional)}">
+              {{ saborAdicional.nome }}
+            </button>
+          </div>
+          <p class="subtitulo">
+            Selecione o produto adicional da sua prefêrencia
+          </p>
+        </div>
+        <div class="acoes">
+          <button class="btn-preto" (click)="verificarBebida()">
+            Adicionar
+          </button>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="resultado">
+    <div class="resultado-card">
+      <div class="sabor">
+        <p class="title-sabor-classico">Identificação do Sabor Clássico</p>
+        <p>Verifique se sua combinação forma um sabor clássico.</p>
+
+        <div class="btn-criar-bebida">
+          <button class="btn-preto" (click)="criarBebida()">
+            Criar Bebida
+          </button>
+        </div>
+      </div>
+      <div class="cards-sabores-selecionados">
+        <div class="card-sabor-classico">
+          <div class="img-classico">
+            <i class="fas fa-regular fa-mug-hot icon"></i>
+          </div>
+          <div class="#">
+            <p><strong>Sabor Clássico Reconhecido:</strong></p>
+            <p>{{bebida.bebidaCriada}}</p>
+          </div>
+        </div>
+        <div class="card-sabor-adicionado">
+          <div class="img-adicionado">
+            <i class="fas fa-bowl-food icon-adicional icon"></i>
+          </div>
+
+          <div *ngIf="selecionadosSaborAdicional?.length">
+            <p><strong>Adicionais:</strong></p>
+            <p>
+              com
+              {{ selecionadosSaborAdicional[0].nome || "..." }}
+              <ng-container *ngIf="selecionadosSaborAdicional.length > 1">
+                e
+                {{
+                  selecionadosSaborAdicional[1].nome || "..."
+                }} </ng-container
+              >.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
