@@ -16,7 +16,7 @@ constructor(
 
 
   navegador():void {
-    this.router.navigate(['bebida-create']);
+    this.router.navigate(['login']);
   }
 
 }
