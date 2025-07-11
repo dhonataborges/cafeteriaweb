@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuario-create',
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './usuario-create.component.css'
 })
 export class UsuarioCreateComponent {
+  constructor(
+      private router: Router
+    ) {}
 
+
+    navegador():void {
+      this.router.navigate(['login']);
+    }
 }

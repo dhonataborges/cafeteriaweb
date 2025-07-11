@@ -11,7 +11,7 @@ import { BebidaClassicaInput} from '../models/input/BebidaClassicaInput';
 })
 export class BebidaClassicaService {
 
-  apiUrl: String = environment.apiUrl;
+  apiUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient,
     private snack: MatSnackBar) { }

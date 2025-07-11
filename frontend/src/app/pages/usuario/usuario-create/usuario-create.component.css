@@ -73,4 +73,5 @@ button:hover {
   color: #4B2E2B;
   font-weight: bold;
   text-decoration: none;
+  cursor: pointer;
 }
