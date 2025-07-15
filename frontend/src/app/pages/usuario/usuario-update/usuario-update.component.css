@@ -1,0 +1,177 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-color: #f4f4f4;
+  padding: 2rem;
+}
+
+.register-box {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.register-box h2 {
+  font-size: 2rem;
+  color: #4b2e2b;
+}
+
+.register-box .subtitulo {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: gray;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+label {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #4b2e2b;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline-color: #4b2e2b;
+}
+
+.link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #4b2e2b;
+}
+
+.link a {
+  color: #4b2e2b;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+small {
+  color: rgb(185, 32, 32);
+}
+
+.error {
+  text-align: left;
+  margin-top: -1rem;
+  margin-bottom: 5px;
+}
+
+.botoes-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem; /* espaço entre os botões */
+  margin-top: 1rem;
+}
+
+.botoes-acoes button {
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/*.btn-atualizar:hover {
+  background-color: white;  
+  color: #5d3a35;
+  border: #5d3a35 solid 1px;
+}
+
+.btn-cancelar:hover {
+  background-color: #4b2e2b;  
+  color: white;
+  border: #5d3a35 solid 1px;
+}*/
+
+.botoes-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Botão Atualizar padrão */
+.btn-atualizar {
+  background-color: #4b2e2b;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-atualizar:hover {
+  background-color: white;
+  color: #4b2e2b;
+  border: #5d3a35 solid 1px !important;
+}
+
+/* Botão Atualizar invertido */
+.btn-atualizar-invertido {
+  background-color: white;
+  color: #4b2e2b;
+  border: #5d3a35 solid 1px !important;
+}
+
+/* Botão Cancelar padrão */
+.btn-cancelar {
+  background-color: white;
+  color: #4b2e2b;
+  border: #4b2e2b solid 1px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancelar:hover {
+  background-color: #5d3a35;  
+  color: white;
+  border: #5d3a35 solid 1px !important;
+}
+
+/* Botão Cancelar ativo (sem precisar hover) */
+.btn-cancelar-ativo {
+  background-color: #5d3a35;
+  color: white;
+  border: #5d3a35 solid 1px !important;
+}
+
+.senha-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.senha-input {
+  flex: 1;
+  padding-right: 35px; /* espaço pro ícone */
+}
+
+.icone-olho {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+  color: #555;
+  user-select: none;
+}

@@ -75,3 +75,13 @@ button:hover {
   text-decoration: none;
   cursor: pointer;
 }
+
+small {
+  color: rgb(185, 32, 32);
+}
+
+.error {  
+  text-align: left;
+  margin-top: -1rem;
+  margin-bottom: 5px;
+}

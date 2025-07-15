@@ -21,6 +21,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,15 +66,16 @@ public class UsuarioController {
     }
 
     @PutMapping("/{usuarioId}")
-    public UsuarioModelDTO atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInputDTO usuarioInputDTO) {
-        try {
-            Usuario usuario = usuarioModelDisassemblerDTO.toDomainObject(usuarioInputDTO);
-            Usuario usuarioAtual = usuarioService.buscarOuFalhar(usuarioId);
-            BeanUtils.copyProperties(usuario, usuarioAtual, "id");
-            return usuarioModelAssemblerDTO.toModel(usuarioService.atualizar(usuarioId, usuarioAtual));
-        } catch (UsuarioNãoEncontradoException e) {
-            throw new NegocioException(e.getMessage());
+    public UsuarioModelDTO atualizar(@PathVariable Long usuarioId, @RequestBody UsuarioInputDTO usuarioInputDTO) {
+        if (usuarioInputDTO.getSenha() != null && usuarioInputDTO.getSenha().length() < 6) {
+            throw new NegocioException("A senha deve ter no mínimo 6 caracteres.");
         }
+
+        Usuario usuario = usuarioModelDisassemblerDTO.toDomainObject(usuarioInputDTO);
+
+        return usuarioModelAssemblerDTO.toModel(
+                usuarioService.atualizar(usuarioId, usuario)
+        );
     }
 
     @DeleteMapping("/{usuarioId}")

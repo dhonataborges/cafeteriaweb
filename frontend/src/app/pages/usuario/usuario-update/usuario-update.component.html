@@ -1,1 +1,104 @@
-<p>usuario-update works!</p>
+<div class="register-container">
+  <div class="register-box">
+    <h2>Criar Conta</h2>
+    <p class="subtitulo">Preencha o formulário abaixo para se cadastrar</p>
+
+    <form #formLogin="ngForm" (ngSubmit)="update(formLogin)">
+      <label for="nome">Nome</label>
+      <input
+        type="nome"
+        id="nome"
+        name="nome"
+        [(ngModel)]="usuario.nome"
+        required
+        nome
+        #nomeModel="ngModel"
+      />
+      <div
+        *ngIf="nomeModel.invalid && (nomeModel.dirty || nomeModel.touched)"
+        class="error"
+      >
+        <small *ngIf="nomeModel.errors?.['required']"
+          >Nome é obrigatório.</small
+        >
+      </div>
+
+      <label for="email">E-mail</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="usuario.email"
+        required
+        email
+        #emailModel="ngModel"
+      />
+      <div
+        *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)"
+        class="error"
+      >
+        <small *ngIf="emailModel.errors?.['required']"
+          >E-mail é obrigatório.</small
+        >
+        <small *ngIf="emailModel.errors?.['email']">E-mail inválido.</small>
+      </div>
+
+      <label for="senha">Senha</label>
+      <div class="senha-container">
+        <input
+          [type]="mostrarSenha ? 'text' : 'password'"
+          id="senha"
+          name="senha"
+          [(ngModel)]="usuario.senha"
+          minlength="6"
+          #senhaModel="ngModel"
+          class="senha-input"
+        />
+        <span
+          class="icone-olho"
+          (click)="mostrarSenha = !mostrarSenha"
+          title="Mostrar/ocultar senha"
+        >
+          <i class="material-icons">
+            {{ mostrarSenha ? "visibility_off" : "visibility" }}
+          </i>
+        </span>
+      </div>
+
+      <div
+        *ngIf="senhaModel.invalid && (senhaModel.dirty || senhaModel.touched)"
+        class="error"
+      >
+        <small *ngIf="senhaModel.errors?.['required']"
+          >Senha é obrigatória.</small
+        >
+        <small *ngIf="senhaModel.errors?.['minlength']"
+          >Senha deve ter pelo menos 6 caracteres.</small
+        >
+      </div>
+
+      <div class="botoes-acoes">
+        <button
+          type="submit"
+          [disabled]="formLogin.invalid"
+          [ngClass]="
+            cancelarHover ? 'btn-atualizar-invertido' : 'btn-atualizar'
+          "
+        >
+          Atualizar
+        </button>
+
+        <button
+          type="button"
+          [disabled]="formLogin.invalid"
+          (mouseenter)="cancelarHover = true"
+          (mouseleave)="cancelarHover = false"
+          [ngClass]="cancelarHover ? 'btn-cancelar-ativo' : 'btn-cancelar'"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

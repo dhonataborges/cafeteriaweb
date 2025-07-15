@@ -21,6 +21,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,16 +33,21 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UsuarioRepository usuarioRepository;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    public AuthController(
+            AuthenticationManager authenticationManager,
+            JwtTokenProvider jwtTokenProvider,
+            UsuarioRepository usuarioRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @PostMapping
-    public ResponseEntity<TokenModelDTO> autenticar(@RequestBody LoginInputDTO loginDTO) {
+    public ResponseEntity<TokenModelDTO> autenticar(@RequestBody @Valid LoginInputDTO loginDTO) {
         try {
-            // Tenta autenticar o usuário com email e senha
+            // 1. Tenta autenticar o usuário
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginDTO.getEmail(),
@@ -49,12 +55,16 @@ public class AuthController {
                     )
             );
 
-            // Se autenticou, gera o token JWT
-            String token = jwtTokenProvider.gerarToken(loginDTO.getEmail());
+            // 2. Busca o usuário no banco
+            Usuario usuario = usuarioRepository.findByEmail(loginDTO.getEmail())
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
+            // 3. Gera o token com claims personalizadas
+            String token = jwtTokenProvider.gerarToken(usuario);
+
+            // 4. Retorna o token para o frontend
             return ResponseEntity.ok(new TokenModelDTO(token));
         } catch (AuthenticationException ex) {
-            // Se falhar, retorna 401 Unauthorized
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }

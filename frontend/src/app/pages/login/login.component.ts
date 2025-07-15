@@ -1,19 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Importar FormsModule para usar ngModel
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LoginInput } from '../../models/input/LoginInput';
-import { TokenModel } from '../../models/TokenModel';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,          
-  imports: [FormsModule],   
+  imports: [FormsModule,CommonModule],   
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
 
   email: string = '';
@@ -26,12 +27,12 @@ export class LoginComponent {
               private authService: AuthService
   ) {}
 
-  entrar() {
+  entrar(formLogin: NgForm) {
     // Exemplo simples: validar campos básicos
-   /*if (!this.email || !this.senha) {
-      this.erroLogin = 'Preencha todos os campos!';
+      if (formLogin.invalid) {
+      this.authService.message("Preecha todos os campos!")
       return;
-    }*/
+    }
 
     const credenciais: LoginInput = {
       email: this.email,

@@ -11,6 +11,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -350,4 +351,27 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(Reference::getFieldName)
                 .collect(Collectors.joining("."));
     }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleDataIntegrityViolation(
+            DataIntegrityViolationException ex, WebRequest request) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
+        String detail = "Violação de integridade dos dados.";
+
+        // Captura a causa raiz da exceção (mensagem do banco)
+        Throwable rootCause = ExceptionUtils.getRootCause(ex);
+        if (rootCause != null && rootCause.getMessage() != null &&
+                rootCause.getMessage().contains("tb_usuario_email_key")) {
+            detail = "O e-mail informado já está em uso.";
+        }
+
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
 }

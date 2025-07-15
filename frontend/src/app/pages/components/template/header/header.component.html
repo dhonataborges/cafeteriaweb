@@ -1,6 +1,25 @@
 <header class="header">
   <div class="container header-content">
     <h1 class="logo">Cafeteria Grão & Arte</h1>
-    <nav><a (click)="navegador()">Entrar</a></nav>
+
+    <nav class="user-info">
+      <ng-container *ngIf="mostrarNome; else entrar">
+        <span class="welcome">Bem-vindo, {{ nomeUsuario }}!</span>
+        <!-- Botão Minha Conta -->
+        <button (click)="toggleMinhaConta()" class="minha-conta-btn">
+          Minha Conta
+
+          <!-- Menu de opções (aparece ao clicar no botão) -->
+          <div *ngIf="mostrarMinhaConta" class="menu-minha-conta">
+            <a (click)="abrirAtualizarUsuario()">Atualizar Dados</a>
+            <a (click)="sair()">Sair</a>
+          </div>
+        </button>
+      </ng-container>
+
+      <ng-template #entrar>
+        <button class="btn-entrar" (click)="navegador()">Entrar</button>
+      </ng-template>
+    </nav>
   </div>
 </header>

@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return User.withUsername(usuario.getEmail())
                 .password(usuario.getSenha()) // já deve estar criptografada no banco
-               // .roles(usuario.getRole())        // exemplo: ADMIN
+                // .roles(usuario.getRole())        // exemplo: ADMIN
                 .build();
     }
 }

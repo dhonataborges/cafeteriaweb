@@ -19,7 +19,7 @@
 
 .register-box h2 {
   font-size: 2rem;
-  color: #4B2E2B;
+  color: #4b2e2b;
 }
 
 .register-box .subtitulo {
@@ -38,7 +38,7 @@ label {
   text-align: left;
   font-weight: 600;
   margin-bottom: 0.3rem;
-  color: #4B2E2B;
+  color: #4b2e2b;
 }
 
 input {
@@ -46,11 +46,11 @@ input {
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  outline-color: #4B2E2B;
+  outline-color: #4b2e2b;
 }
 
 button {
-  background-color: #4B2E2B;
+  background-color: #4b2e2b;
   color: white;
   border: none;
   padding: 12px;
@@ -66,12 +66,22 @@ button:hover {
 .link {
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #4B2E2B;
+  color: #4b2e2b;
 }
 
 .link a {
-  color: #4B2E2B;
+  color: #4b2e2b;
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
+}
+
+small {
+  color: rgb(185, 32, 32);
+}
+
+.error {
+  text-align: left;
+  margin-top: -1rem;
+  margin-bottom: 5px;
 }

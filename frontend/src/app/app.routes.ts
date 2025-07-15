@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/components/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UsuarioCreateComponent } from './pages/usuario/usuario-create/usuario-create.component';
 import { authGuard } from './auth/auth.guard';
+import { UsuarioUpdateComponent } from './pages/usuario/usuario-update/usuario-update.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,11 @@ export const routes: Routes = [
   {
     path: 'bebida-create',
     component: BebidaCreateComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'usuario-update/update/:id',
+    component: UsuarioUpdateComponent,
     canActivate: [authGuard]
   }
 ];
