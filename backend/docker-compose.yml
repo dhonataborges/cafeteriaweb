@@ -1,20 +1,22 @@
+version: '3.8'
+
 services:
   # Serviço do banco de dados PostgreSQL
   postgres:
-    image: postgres:15.6  # Versão compatível com Flyway
+    image: postgres:15.6
     container_name: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persistência dos dados do banco
+      - postgres_data:/var/lib/postgresql/data
       - ./01-basegeografica.sql:/docker-entrypoint-initdb.d/01-basegeografica.sql
       - ./02-basegeografica.sql:/docker-entrypoint-initdb.d/02-basegeografica.sql
     environment:
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin1234"
-      POSTGRES_DB: "bd_ecommerce"
+      POSTGRES_DB: "bd_cafeteriaweb"      # Corrigido aqui
     ports:
       - "5432:5432"
     networks:
-      - ecommerce-net
+      - cafeteriaweb-net
 
   # Serviço do pgAdmin
   pgadmin:
@@ -29,13 +31,26 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     networks:
-      - ecommerce-net
+      - cafeteriaweb-net
+
+  # Serviço da aplicação Spring Boot
+  cafeteriaweb-app:
+    image: cafeteriaweb-app
+    container_name: cafeteriaweb-container
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.prod
+    networks:
+      - cafeteriaweb-net
 
 # Volumes persistentes
 volumes:
-  postgres_data:     # Dados do banco PostgreSQL
-  pgadmin_data:      # Dados de configuração do pgAdmin
+  postgres_data:
+  pgadmin_data:
 
-# Rede interna
+# Rede interna Docker
 networks:
-  ecommerce-net:
+  cafeteriaweb-net:
